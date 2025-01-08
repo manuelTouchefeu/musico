@@ -166,7 +166,7 @@ class TrackManager(Connection):
         album = album if album is not None else TrackManager().add_album(album_title, album_date, album_cover)
 
         res = self.get_track(path)
-
+        print(res)
         sql = ""
 
         if res is None:
@@ -177,16 +177,13 @@ class TrackManager(Connection):
 
         # update tags
         else:
-            sql = "UPDATE tracks \
-                            (genreID, artistID, albumID, tracknumber, title, date, cover, embedded_cover, path) \
-                            VALUES (%d, %d, %d, %d, '%s', %d, '%s', %d, '%s')" % (
-                            genre.genre_id, artist.artist_id, album.album_id, int(track_number),
-                            track_title, int(track_date), track_cover, track_embedded_cover, path)
-
-
+            sql = "UPDATE tracks SET \
+                genreID = %d, artistID = %d, albumID = %d, tracknumber = %d, title = '%s', date = %d, cover = '%s', embedded_cover = '%s', path = '%s' \
+                WHERE id = %d" % (genre.genre_id, artist.artist_id, album.album_id, int(track_number),
+                                    track_title, int(track_date), track_cover, track_embedded_cover, path, res.track_id)
+        print(sql)
         self.conn.execute(sql)
         self.db.commit()
-
         return self.get_track(path)
 
     def get_genre(self, genre_name):
@@ -314,7 +311,7 @@ class TrackManager(Connection):
             WHERE path = '%s'" % path
         self.conn.execute(sql)
         res = self.conn.fetchone()
-        return Track(res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], res[9], res[10], res[11], res[12], res[13])
+        return Track(res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], res[9], res[10], res[11], res[12], res[13]) if res else None
 
     def get_track2(self, track_id):
         sql = "SELECT genres.id, genres.name, artists.id, artists.name, albums.id, \
@@ -326,7 +323,7 @@ class TrackManager(Connection):
             WHERE tracks.id = %d" % track_id
         self.conn.execute(sql)
         res = self.conn.fetchone()
-        return Track(res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], res[9], res[10], res[11], res[12], res[13])
+        return Track(res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], res[9], res[10], res[11], res[12], res[13]) if res else None
 
     def search_tracks(self, pattern):
         sql = "SELECT genres.id, genres.name, artists.id, artists.name, albums.id, \
