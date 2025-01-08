@@ -156,28 +156,40 @@ class TrackManager(Connection):
         if re.match(r"\d+/\d+", track_number):
             track_number = track_number.split('/')[0]
 
+        artist = TrackManager().get_artist(artist_name)
+        artist = artist if artist is not None else TrackManager().add_artist(artist_name)
 
-        sql = "SELECT * FROM tracks WHERE path = '%s'" % path
-        self.conn.execute(sql)
-        res = self.conn.fetchone()
+        genre = TrackManager().get_genre(genre_name)
+        genre = genre if genre is not None else TrackManager().add_genre(genre_name)
+
+        album = TrackManager().get_album(album_title)
+        album = album if album is not None else TrackManager().add_album(album_title, album_date, album_cover)
+
+        res = self.get_track(path)
+
 
         if res is None:
             print(artist_name, album_title)
-
-            artist = TrackManager().get_artist(artist_name)
-            artist = artist if artist is not None else TrackManager().add_artist(artist_name)
-
-            genre =  TrackManager().get_genre(genre_name)
-            genre =  genre if genre is not None else TrackManager().add_genre(genre_name)
-
-            album =  TrackManager().get_album(album_title)
-            album = album if album is not None else TrackManager().add_album(album_title, album_date, album_cover)
             sql= "INSERT INTO tracks \
                 (genreID, artistID, albumID, tracknumber, title, date, cover, embedded_cover, path) \
                 VALUES (%d, %d, %d, %d, '%s', %d, '%s', %d, '%s')" % (genre.genre_id, artist.artist_id, album.album_id, int(track_number),
                                                                  track_title, int(track_date), track_cover, track_embedded_cover, path)
             self.conn.execute(sql)
             self.db.commit()
+
+        # update tags
+        else:
+            sql = "UPDATE tracks \
+                            (genreID, artistID, albumID, tracknumber, title, date, cover, embedded_cover, path) \
+                            VALUES (%d, %d, %d, %d, '%s', %d, '%s', %d, '%s')" % (
+            genre.genre_id, artist.artist_id, album.album_id, int(track_number),
+            track_title, int(track_date), track_cover, track_embedded_cover, path)
+            self.conn.execute(sql)
+            self.db.commit()
+
+        self.conn.execute(sql)
+        self.db.commit()    
+	#jojo update jojo
         return self.get_track(path)
 
     def get_genre(self, genre_name):
