@@ -189,7 +189,7 @@ class TrackManager(Connection):
 
         self.conn.execute(sql)
         self.db.commit()    
-	#jojo update jojo
+	#jojo update jojo encore
         return self.get_track(path)
 
     def get_genre(self, genre_name):
