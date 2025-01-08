@@ -1,0 +1,20 @@
+<h2>{{ album.tracks[0].artist_name }} - {{ album.album_title }} ({{ album.album_date }})
+    <button class="addToPlaylist" name="album" value="{{ album.album_id }}">+</button></h2>
+<div class="music-container">
+   <input type="hidden" class="target" value="{{ album.tracks[0].artist_id }}"/>
+    {% if album.album_cover != "None" %}
+    <img class="album_cover" src="/{{ album.album_cover }}" />
+    {% else %}
+    <img  class="album_cover" src="/static/images/alt.jpg/" />
+    {% endif %}
+    <p class="link link_artist">{{ album.tracks[0].artist_name }}</p>
+    <div><input type="hidden" class="target" value="{{ album.tracks[0].genre_id }}"/><p class="link link_genre">{{ album.tracks[0].genre_name }}</p></div>
+     <div>
+         {% for t in album.tracks %}
+            <p>{{ t.track_number }} - {{ t.track_title }} <button class="addTrackToPlaylist" name="song" value="{{ t.track_id }}">+</button></p>
+         {% endfor %}
+     </div>
+</div>
+
+
+

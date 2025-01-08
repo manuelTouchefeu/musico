@@ -1,0 +1,18 @@
+<h2>Artistes</h2>
+<div class="music-container">
+ {% for art in arts %}
+     <div class="album">
+         <div class="pochette">
+           <input type="hidden" class="target" value="{{ art.artist_id }}"/>
+            {% if art.artist_image != "None" %}
+            <img src="{{ art.artist_image }}" class="link link_artist"/>
+            {% else %}
+            <img src="/static/images/alt.jpg/" class="link link_artist"/>
+            {% endif %}
+           <p class="link link_artist">{{ art.artist_name }}</p>
+         </div>
+    </div>
+{% endfor %}
+</div>
+
+

@@ -1,0 +1,280 @@
+body {
+    margin: 0px;
+    padding: 0px;
+ }
+
+ header {
+    position: fixed;
+    top: 0px;
+    width: 80vw;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: lightgray;
+    border-bottom: 1px solid black;
+    color: black;
+}
+
+header h1 {
+	 font-weight: normal;
+	 font-size: 2rem;
+	 margin-top: 1.5rem;
+	 padding: 0.5rem;
+}
+ header #links {
+	 display: flex;
+	 justify-content: space-between;
+	 padding-right: 2rem;
+	 padding-left: 2rem;
+}
+
+input {
+    padding: 2px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    outline: none; /* Retire les bordures appliquées par certains navigateurs (Chrome notamment) lors du focus des éléments <input> */
+}
+
+
+input:focus {
+    border-color: rgba(82, 168, 236, 0.75);
+    -moz-box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+    -webkit-box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+    box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+}
+
+#content {
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    width: 80%;
+    background-color: white;
+}
+
+#content h2 {
+    margin: 0;
+}
+
+.music-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.album {
+	 background-color: lightgray;
+	 width: 15vw;
+	 margin-top: 2rem;
+	 text-align: center;
+	 font-size: 1rem;
+}
+#content .album a {
+	 color: black;
+	 text-decoration: none;
+}
+#content .album img {
+	 width: 90%;
+	 height: auto;
+	 object-fit: fill;
+}
+
+.album_cover {
+    width: 25vw;
+	height: 25vw;
+}
+
+#content .album {
+    display: flex;
+    flex-direction: row;
+}
+
+#playlist {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    width: 20vw;
+    padding-top: 1vh;
+    padding-left: 1vw;
+    padding-bottom: 10vh;
+    background-color: lightgray;
+    height: 100vh;
+    border-left: 1px solid black;
+    overflow: scroll;
+    box-sizing: border-box;
+}
+
+#playlist-button {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 20vw;
+    height: 10vh;
+    border-left: 1px solid black;
+}
+
+.played {
+    	 background-color: lightgray;
+    	 color: gray;
+}
+.not-played {
+    	 background-color: lightgray;
+    	 color: black;
+}
+
+/* Using flex with the column direction to align items in a vertical direction */
+.player {
+    position: fixed;
+    bottom: 0px;
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: left;
+    background-color: lightgray;
+    border-top: 1px solid black;
+    z-index: 1;
+}
+
+/* Changing the font sizes to suitable ones */
+.track-name {
+    font-size: 1,5 rem;
+}
+.track-artist {
+    font-size: 1rem;
+}
+/* Using flex with the row direction to align items in a horizontal direction */
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.playpause-track, .prev-track, .next-track {
+    padding: 25px;
+    opacity: 0.8;
+    /* Smoothly transition the opacity */
+    transition: opacity 0.2s;
+}
+/* Change the opacity when mouse is hovered */
+.playpause-track:hover, .prev-track:hover, .next-track:hover {
+    opacity: 1;
+}
+/* Define the slider width so that it scales properly */
+.slider_container {
+    width: 75%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Modify the appearance of the slider */
+.seek_slider, .volume_slider {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 5px;
+    background: black;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+}
+/* Modify the appearance of the slider thumb */
+.seek_slider::-webkit-slider-thumb, .volume_slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: white;
+    cursor: pointer;
+    border-radius: 50%;
+}
+/* Change the opacity when mouse is hovered */
+.seek_slider:hover, .volume_slider:hover {
+    opacity: 1;
+}
+.seek_slider {
+    width: 60%;
+}
+.volume_slider {
+    width: 30%;
+}
+.current-time, .total-duration {
+    padding: 10px;
+}
+i.fa-volume-down, i.fa-volume-up {
+    padding: 10px;
+}
+/* Change the mouse cursor to a pointer when hovered over */
+i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward, .addToPlaylist, .playListItem {
+    cursor: pointer;
+}
+
+#equalizer {
+    margin-right: 1vw;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* login */
+#login {
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    padding: 2px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    outline: none; /* Retire les bordures appliquées par certains navigateurs (Chrome notamment) lors du focus des éléments <input> */
+}
+
+input[type='text'], input[type='email'], input[type='password'], textarea, select, option {
+  width : 30vh;
+  margin-right: 0;
+}
+
+input[type='submit'] {
+    margin-right:0px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+a:visited {
+	 color: black;
+	 text-decoration: none;
+}
+a:hover {
+	 color: lightgray;
+	 text-decoration: none;
+}
+.link {
+	 color: black;
+	 text-decoration: none;
+	 cursor: pointer;
+}
+.link:visited {
+	 color: black;
+	 text-decoration: none;
+}
+.link:hover {
+	 color: lightgray;
+	 text-decoration: none;
+}

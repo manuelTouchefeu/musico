@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="/static/css/musico.css" />
+        <title>Musico!</title>
+          <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+	</head>
+
+	<body>
+        <header>
+            <h1>Musico!</h1>
+            <div id="links">
+                <span class="link" id="link_albums">Albums</span>&nbsp;
+                <span class="link" id="link_artists">Artistes</span>&nbsp;
+                <span class="link" id="link_genres">Genres</span>
+            </div>
+            <div>
+                <input type="text" id="search"> <button id="searchButton">chercher</button>
+            </div>
+           <p>{{ current_user }} | <a href="/logout">Se déconnecter</a></p>
+        </header>
+
+        <div id="content"></div>
+
+         <div class="player">
+                          <!-- Define the section for displaying details -->
+
+                <!-- Define the section for displaying track buttons -->
+                <div class="buttons">
+                    <div class="stop">
+                    <i class="fa fa-step-backward fa-2x"><img src="/static/images/stop.png"></i>
+                  </div>
+                  <div class="prev-track">
+                    <i class="fa fa-step-backward fa-2x"><img src="/static/images/previous.png"></i>
+                  </div>
+                  <div class="playpause-track">
+                    <i class="fa fa-play-circle fa-5x"><img src="/static/images/play.png"></i>
+                  </div>
+                  <div class="next-track">
+                    <i class="fa fa-step-forward fa-2x"><img src="/static/images/next.png"></i>
+                  </div>
+                </div>
+
+                <!-- Define the section for displaying the volume slider-->
+                <div class="slider_container">
+                  <i class="fa fa-volume-down"></i>
+                  <input type="range" min="1" max="100" value="100" class="volume_slider">
+                  <i class="fa fa-volume-up"></i>
+                </div>
+
+                <!-- Define the section for displaying the seek slider-->
+                <div class="slider_container">
+                  <div class="current-time">00:00</div>
+                  <input type="range" min="1" max="100" value="0" class="seek_slider">
+                  <div class="total-duration">00:00</div>
+                </div>
+
+                <div id="equlizer_container">
+                    <img id="equalizer" src="/static/images/icons8-audio-wave-50.png/" />
+                </div>
+
+                <div class="details">
+                    <div>
+                        <div id="track-artist"></div>
+                        <div id="track-name"></div>
+                    </div>
+                </div>
+
+                <div id="playlist-button">
+                    <button id="clearPlaylist">Clear playlist</button> <button id="update_db">Update db</button> <button id="out">Local</button>
+                </div>
+
+          </div>
+
+        <div id="playlist">
+            {% set c = namespace(value=0) %}
+            {% for tr in playlist %}
+            <p class="playListItem not-played">
+                {{ tr.track_number }} - {{ tr.track_title }}
+                <input name="track_index" type="hidden" value={{ c.value }} />
+            </p>
+            {% set c.value = c.value + 1 %}
+            {% endfor %}
+        </div>
+	</body>
+
+    <script src="/static/js/player.js"></script>
+</html>

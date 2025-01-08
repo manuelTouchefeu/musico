@@ -1,0 +1,191 @@
+$border: 1px solid black;
+
+body {
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+    a:visited {
+        color: black;
+        text-decoration: none;
+    }
+    a:hover {
+        color: lightgray;
+        text-decoration: none;
+    }
+    .link {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .link:visited {
+        color: black;
+        text-decoration: none;
+    }
+    link:hover {
+        color: lightgray;
+        text-decoration: none;
+    }
+}
+
+#main_block {
+    width: 80vw;
+    border-right: $border;
+
+    header {
+        position: fixed;
+        top: 0px;
+        height: 10vh;
+        width: 80vw;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        background-color: gray;
+        border-bottom: $border;
+        color: black;
+    }
+
+    #content {
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+        width: 80vw;
+        background-color: white;
+
+        .music-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+
+            .album {
+                width: 15vw;
+                margin-top: 2rem;
+                text-align: center;
+                font-size: 1rem;
+                border: $border;
+
+                .album img {
+                     width: 13vw;
+                     height: auto;
+                }
+            }
+        }
+    }
+
+    #player {
+        position: fixed;
+        bottom: 0px;
+        height: 10vh;
+        width: 80vw;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: left;
+        background-color: gray;
+        border-top: $border;
+
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .playpause-track, .prev-track, .next-track {
+                 padding: 25px;
+                 opacity: 0.8;
+                 transition: opacity 0.2s;
+            }
+
+            .playpause-track:hover, .prev-track:hover, .next-track:hover {
+                 opacity: 1;
+            }
+        }
+
+        .slider_container {
+             width: 75%;
+             max-width: 400px;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+
+             /* Modify the appearance of the slider */
+            .seek_slider, .volume_slider {
+                 -webkit-appearance: none;
+                 -moz-appearance: none;
+                 appearance: none;
+                 height: 5px;
+                 background: black;
+                 opacity: 0.7;
+                 -webkit-transition: 0.2s;
+                 transition: opacity 0.2s;
+            }
+            /* Modify the appearance of the slider thumb */
+            .seek_slider::-webkit-slider-thumb, .volume_slider::-webkit-slider-thumb {
+                 -webkit-appearance: none;
+                 -moz-appearance: none;
+                 appearance: none;
+                 width: 15px;
+                 height: 15px;
+                 background: white;
+                 cursor: pointer;
+                 border-radius: 50%;
+            }
+            /* Change the opacity when mouse is hovered */
+             .seek_slider:hover, .volume_slider:hover {
+                 opacity: 1;
+            }
+             .seek_slider {
+                 width: 60%;
+            }
+             .volume_slider {
+                 width: 30%;
+            }
+             .current-time, .total-duration {
+                 padding: 10px;
+            }
+             i.fa-volume-down, i.fa-volume-up {
+                 padding: 10px;
+            }
+            /* Change the mouse cursor to a pointer when hovered over */
+             i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward, .addToPlaylist, .playListItem {
+                 cursor: pointer;
+            }
+        }
+
+        .details {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+}
+
+#playlist_container {
+    width: 20vw;
+    height: 100%;
+    border-left: $border;
+
+    #playlist_header {
+        position: fixed;
+        right: 0px;
+        top: 0px;
+        width: 20vw;
+        height: 10vh;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        border-bottom: $border;
+        border-left: $border;
+        background-color: gray;
+    }
+
+    #playlist {
+        margin-top: 10vh;
+        overflow: scroll;
+    }
+}

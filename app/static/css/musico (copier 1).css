@@ -1,0 +1,438 @@
+body {
+    display: flex;
+	flex-direction: row;
+}
+
+#main_block {
+    width: 80vw;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    height: 10vh;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: gray;
+    border-bottom: 1px solid black;
+    color: black;
+}
+
+header h1 {
+    font-weight: normal;
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    padding: 0.5rem;
+}
+
+header #links {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+
+input {
+    padding: 2px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    outline: none; /* Retire les bordures appliquées par certains navigateurs (Chrome notamment) lors du focus des éléments <input> */
+}
+
+input:focus {
+    border-color: rgba(82, 168, 236, 0.75);
+    -moz-box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+    -webkit-box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+    box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+}
+
+#content {
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    width: 80vw;
+    background-color: white;
+    overflow: scroll;
+}
+
+#content h2 {
+}
+
+.music-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+}
+
+.album {
+    background-color: lightgray;
+    width: 15vw;
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1rem;
+}
+#content .album a {
+	 color: black;
+	 text-decoration: none;
+}
+#content .album img {
+	 width: 90%;
+	 height: auto;
+
+}
+
+.album_cover {
+    width: 25vw;
+	height: 25vw;
+}
+
+#content .album {
+    display: flex;body {
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  padding: 0px;
+}
+body a {
+  color: black;
+  text-decoration: none;
+}
+body a:visited {
+  color: black;
+  text-decoration: none;
+}
+body a:hover {
+  color: lightgray;
+  text-decoration: none;
+}
+body .link {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+body .link:visited {
+  color: black;
+  text-decoration: none;
+}
+body link:hover {
+  color: lightgray;
+  text-decoration: none;
+}
+
+#main_block {
+  width: 80vw;
+  border-right: 3px solid black;
+}
+#main_block header {
+  position: fixed;
+  top: 0px;
+  height: 10vh;
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: gray;
+  border-bottom: 3px solid black;
+  color: black;
+}
+#main_block #content {
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  width: 80vw;
+  background-color: white;
+}
+#main_block #player {
+  position: fixed;
+  bottom: 0px;
+  height: 10vh;
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: left;
+  background-color: gray;
+  border-top: 3px solid black;
+}
+#main_block #player .buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#main_block #player .buttons .playpause-track, #main_block #player .buttons .prev-track, #main_block #player .buttons .next-track {
+  padding: 25px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+#main_block #player .buttons .playpause-track:hover, #main_block #player .buttons .prev-track:hover, #main_block #player .buttons .next-track:hover {
+  opacity: 1;
+}
+#main_block #player .slider_container {
+  width: 75%;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Modify the appearance of the slider */
+  /* Modify the appearance of the slider thumb */
+  /* Change the opacity when mouse is hovered */
+  /* Change the mouse cursor to a pointer when hovered over */
+}
+#main_block #player .slider_container .seek_slider, #main_block #player .slider_container .volume_slider {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 5px;
+  background: black;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+#main_block #player .slider_container .seek_slider::-webkit-slider-thumb, #main_block #player .slider_container .volume_slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: white;
+  cursor: pointer;
+  border-radius: 50%;
+}
+#main_block #player .slider_container .seek_slider:hover, #main_block #player .slider_container .volume_slider:hover {
+  opacity: 1;
+}
+#main_block #player .slider_container .seek_slider {
+  width: 60%;
+}
+#main_block #player .slider_container .volume_slider {
+  width: 30%;
+}
+#main_block #player .slider_container .current-time, #main_block #player .slider_container .total-duration {
+  padding: 10px;
+}
+#main_block #player .slider_container i.fa-volume-down, #main_block #player .slider_container i.fa-volume-up {
+  padding: 10px;
+}
+#main_block #player .slider_container i.fa-play-circle, #main_block #player .slider_container i.fa-pause-circle, #main_block #player .slider_container i.fa-step-forward, #main_block #player .slider_container i.fa-step-backward, #main_block #player .slider_container .addToPlaylist, #main_block #player .slider_container .playListItem {
+  cursor: pointer;
+}
+#main_block #player .details {
+  display: flex;
+  flex-direction: row;
+}
+
+#playlist_container {
+  width: 20vw;
+  height: 100%;
+  border-left: 3px solid black;
+}
+#playlist_container #playlist_header {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  width: 20vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 3px solid black;
+  border-left: 3px solid black;
+  background-color: gray;
+}
+#playlist_container #playlist {
+  margin-top: 10vh;
+}
+    flex-direction: row;
+}
+
+#playlist_container {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    width: 20vw;
+    padding-top: 1%;
+    padding-left: 1%;
+    background-color: gray;
+    height: 100%;
+    border-left: 1px solid black;
+}
+
+#playlist_header {
+    border-bottom: 1px solid black;
+    position: fixed;
+}
+
+#playlist {
+    margin-top: 10vh;
+    overflow: scroll;
+}
+
+.played {
+    	 color: lightgray;
+}
+.not-played {
+    	 color: black;
+}
+
+.player {
+    position: fixed;
+    bottom: 0px;
+    height: 10vh;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: left;
+    background-color: gray;
+    border-top: 1px solid black;
+}
+
+/* Changing the font sizes to suitable ones */
+ .track-name {
+	 font-size: 1,5 rem;
+}
+ .track-artist {
+	 font-size: 1rem;
+}
+/* Using flex with the row direction to align items in a horizontal direction */
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.playpause-track, .prev-track, .next-track {
+	 padding: 25px;
+	 opacity: 0.8;
+	/* Smoothly transition the opacity */
+	 transition: opacity 0.2s;
+}
+
+/* Change the opacity when mouse is hovered */
+.playpause-track:hover, .prev-track:hover, .next-track:hover {
+	 opacity: 1;
+}
+/* Define the slider width so that it scales properly */
+.slider_container {
+	 width: 75%;
+	 max-width: 400px;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+}
+/* Modify the appearance of the slider */
+.seek_slider, .volume_slider {
+	 -webkit-appearance: none;
+	 -moz-appearance: none;
+	 appearance: none;
+	 height: 5px;
+	 background: black;
+	 opacity: 0.7;
+	 -webkit-transition: 0.2s;
+	 transition: opacity 0.2s;
+}
+/* Modify the appearance of the slider thumb */
+.seek_slider::-webkit-slider-thumb, .volume_slider::-webkit-slider-thumb {
+	 -webkit-appearance: none;
+	 -moz-appearance: none;
+	 appearance: none;
+	 width: 15px;
+	 height: 15px;
+	 background: white;
+	 cursor: pointer;
+	 border-radius: 50%;
+}
+/* Change the opacity when mouse is hovered */
+ .seek_slider:hover, .volume_slider:hover {
+	 opacity: 1;
+}
+ .seek_slider {
+	 width: 60%;
+}
+ .volume_slider {
+	 width: 30%;
+}
+ .current-time, .total-duration {
+	 padding: 10px;
+}
+ i.fa-volume-down, i.fa-volume-up {
+	 padding: 10px;
+}
+/* Change the mouse cursor to a pointer when hovered over */
+ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward, .addToPlaylist, .playListItem {
+	 cursor: pointer;
+}
+
+.details {
+    display: flex;
+	 flex-direction: row;
+}
+
+#min-cover {
+	 height: 8vh;
+  width: auto;
+ }
+
+
+
+/* login */
+#login {
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    padding: 2px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    outline: none; /* Retire les bordures appliquées par certains navigateurs (Chrome notamment) lors du focus des éléments <input> */
+}
+
+input[type='text'], input[type='email'], input[type='password'], textarea, select, option {
+  width : 30vh;
+  margin-right: 0;
+}
+
+input[type='submit'] {
+    margin-right:0px;
+}
+
+label {
+	width: 150px;
+}
+
+
+a {
+    color: black;
+    text-decoration: none;
+}
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+a:hover {
+    color: lightgray;
+    text-decoration: none;
+}
+.link {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.link:visited {
+    color: black;
+    text-decoration: none;
+}
+link:hover {
+    color: lightgray;
+    text-decoration: none;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="/static/css/musico.css" />
+		<title>Musico!</title>
+	</head>
+
+	<body>
+        <section id="login">
+            <h1>Musico!</h1>
+            <h2>Inscription</h2>
+            {% for message in get_flashed_messages() %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+
+            <div>
+                <form method="POST" action="/register">
+                    <label for="lastname">Nom:</label> <br>
+                    <input id="lastname" name="lastname" type="text" value="{{ form['lastname'] }}" required/> <br>
+                    <label for="firstname">Prénom:</label> <br>
+                    <input id="firstname" name="firstname" type="text" value="{{ form['firstname'] }}" required/> <br>
+                    <label for="email">Email:</label> <br>
+                    <input id="email" name="email" type="email" value="{{ form['email'] }}" required/> <br>
+                    <label for="password">Mot de passe :</label> <br>
+                    <input id="password" name="password" type="password" required/> <br>
+                    <label for="password2">Confirmez le mot de passe :</label> <br>
+                    <input id="password2" name="password2" type="password" required/> <br>
+                    <br>
+                    <input id="submit" type="submit" value="Envoyer"/>
+                </form>
+            </div>
+
+        </section>
+    </body>
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+</html>

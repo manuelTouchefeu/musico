@@ -1,0 +1,19 @@
+<h2>{{ gnr.genre_name}}</h2>
+<div class="music-container">
+       {% for album in gnr.albums %}
+        <div class="album">
+             <div class="pochette">
+                <input type="hidden" class="target" value="{{ album.album_id }}"/>
+                 {% if  album.album_cover != "None" %}
+                <img src="/{{ album.album_cover }}" class="link link_album"/>
+                {% else %}
+                <img src="/static/images/alt.jpg/" class="link link_album"/>
+                {% endif %}
+                  <p class="link link_artist">{{ album.tracks[0].artist_name }}</p>
+                <p class="link link_album">{{ album.album_title }}</p>
+             </div>
+             <div><button class="addToPlaylist" name="album" value="{{ album.album_id }}">+</button></div>
+        </div>
+        {% endfor %}
+    </div>
+

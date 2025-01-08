@@ -1,0 +1,50 @@
+<h2>Des morceaux: {% if trks | length == 0 %} il n'y a rien ici! {% endif %}</h2>
+<div class="music-container">
+   {% for trk in trks %}
+         <div class="album">
+             <div class="pochette">
+                <input type="hidden" class="target" value="{{ trk.album_id }}"/>
+                 {% if trk.track_cover != "None" %}
+                <img src="/{{ trk.track_cover }}" class="link link_album"/>
+                {% else %}
+                <img src="/static/images/alt.jpg/" class="link link_album"/>
+                {% endif %}
+                <p class="link link_album">{{ trk.track_title }}</p>
+             </div>
+        </div>
+    {% endfor %}
+</div>
+
+<h2>Des albums: {% if albums | length == 0 %} il n'y a rien ici! {% endif %}</h2>
+<div class="music-container">
+   {% for album in albums %}
+    <div class="album">
+         <div class="pochette">
+            <input type="hidden" class="target" value="{{ album.album_id }}"/>
+             {% if  album.album_cover != "None" %}
+            <img src="/{{ album.album_cover }}" class="link link_album"/>
+            {% else %}
+            <img src="/static/images/alt.jpg/" class="link link_album"/>
+            {% endif %}
+              <p class="link link_artist">{{ album.tracks[0].artist_name }}</p>
+            <p class="link link_album">{{ album.album_title }}</p>
+         </div>
+    </div>
+    {% endfor %}
+</div>
+<h2>Des artistes: {% if arts | length == 0 %} il n'y a rien ici! {% endif %}</h2>
+<div class="music-container">
+ {% for art in arts %}
+     <div class="album">
+         <div class="pochette">
+           <input type="hidden" class="target" value="{{ art.artist_id }}"/>
+            {% if art.artist_image != "None" %}
+            <img src="{{ art.artist_image }}" class="link link_artist"/>
+            {% else %}
+            <img src="/static/images/alt.jpg/" class="link link_artist"/>
+            {% endif %}
+           <p class="link link_artist">{{ art.artist_name }}</p>
+         </div>
+    </div>
+{% endfor %}
+</div>

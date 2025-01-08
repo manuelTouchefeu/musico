@@ -1,0 +1,16 @@
+<h2>Genres</h2>
+<div class="music-container">
+{% for g in gnr %}
+     <div class="album">
+         <div class="pochette">
+             <input type="hidden" class="target" value="{{ g.genre_id }}"/>
+            {% if g.genre_image != "None" %}
+            <img src="{{ g.genre_image }}" class="link link_genre"/>
+            {% else %}
+            <img src="/static/images/alt.jpg/" class="link link_genre"/>
+            {% endif %}
+            <p class="link link_genre">{{ g.genre_name }}</p>
+         </div>
+    </div>
+{% endfor %}
+</div>
