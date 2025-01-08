@@ -163,12 +163,13 @@ class TrackManager(Connection):
         genre = genre if genre is not None else TrackManager().add_genre(genre_name)
 
         album = TrackManager().get_album(album_title)
-        if album.album_cover != album_cover:
+        # for tag in album ....
+        if album and album.album_cover != album_cover:
             sql = "UPDATE albums SET cover = '%s' WHERE title = '%s'" % (album_cover, album_title)
             self.conn.execute(sql)
             self.db.commit()
         else:
-            TrackManager().add_album(album_title, album_date, album_cover)
+            album = TrackManager().add_album(album_title, album_date, album_cover)
 
         res = self.get_track(path)
         sql = ""
