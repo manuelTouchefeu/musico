@@ -186,7 +186,7 @@ class TrackManager(Connection):
                 genreID = %d, artistID = %d, albumID = %d, tracknumber = %d, title = '%s', date = %d, cover = '%s', embedded_cover = '%s', path = '%s' \
                 WHERE id = %d" % (genre.genre_id, artist.artist_id, album.album_id, int(track_number),
                                     track_title, int(track_date), track_cover, track_embedded_cover, path, res.track_id)
-        print(sql)
+                
         self.conn.execute(sql)
         self.db.commit()
         return self.get_track(path)
