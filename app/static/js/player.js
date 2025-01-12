@@ -694,7 +694,7 @@ window.addEventListener("keydown", (event) => {
             break;
         case "Space":
             // except if the focus is on search field
-            if (!searchInput.hasFocus()     ) {
+            if (document.activeElement != searchInput) {
                 event.preventDefault();
                 playPause();
             }
