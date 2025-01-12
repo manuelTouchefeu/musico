@@ -2,13 +2,15 @@ import mutagen
 from mutagen.flac import FLAC
 from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
+from PIL import Image
+from io import BytesIO
 import os
-from .models import TrackManager, UserManager
+from .models import TrackManager
 
 #source = "static/musique"
 music_ext = {"flac": ["flac", "FLAC"], "ogg": ["ogg", "OGG"], "mp3": ["mp3", "MP3"]}
 cover_ext = ["jpg", "JPG"]
-cover_name = ["cover", "Cover", "Folder", "folder", ]
+cover_name = ["cover", "Cover", "Folder", "folder", "Front", "front"]
 
 def explore(current_dir):
 	try:
@@ -21,16 +23,33 @@ def explore(current_dir):
 		embedded_cover = 0
 		cover = None
 
+		# recherhe image
+		for f in os.listdir(parent_dir):
+			if f.split(".")[-1] in cover_ext and f.split(".")[0] in cover_name:
+				cover = "%s/%s" % (parent_dir, f)
+				# adaptation foireuse, la même pour le fichier son:
+				cover = "/".join(cover.split("/")[1:])
+				break
+
 		if ext in music_ext["flac"]:
 			try:
 				f_m = FLAC(current_dir)
+				if cover is None:
+					pics = f_m.pictures
+					for p in pics:
+						if p.type == 3:  # front cover
+							im = Image.open(BytesIO(p.data))
+							print(f_m["artist"][0], f_m["album"][0], f_m["title"][0])
+							print(im)
+							try:
+								im.save("%s/Cover.jpg" % parent_dir)
+								cover = "%s/Cover.jpg" % parent_dir
+							except OSError:
+								pass
+							break
 			except mutagen.flac.FLACNoHeaderError:
 				pass
-			pics = f_m.pictures
-			for p in pics:
-				if p.type == 3:  # front cover
-					pass
-					break
+
 
 		elif ext in music_ext["mp3"]:
 			try:
@@ -39,13 +58,6 @@ def explore(current_dir):
 				pass
 			# embedded cover
 
-		# recherhe image
-		for f in os.listdir(parent_dir):
-			if f.split(".")[-1] in cover_ext and f.split(".")[0] in cover_name:
-				cover = "%s/%s" % (parent_dir, f)
-				# adaptation foireuse, la même pour le fichier son:
-				cover = "/".join(cover.split("/")[1:])
-				break
 
 		# genre_name, artist_name, album_title, album_date, track_number, track_title, track_date, album_cover = None, track_cover = None, track_embedded_cover = None)
 		if f_m != "jojo":
