@@ -142,9 +142,8 @@ class TrackManager(Connection):
             self.db.commit()
         return TrackManager().get_album(album_title)
 
-    def add_track(self, genre_name, artist_name, album_title, album_date, track_number, track_title,
-                  track_date, path, album_cover=None, track_cover=None, track_embedded_cover=0):
-
+    def add_or_update_track(self, genre_name, artist_name, album_title, album_date, track_number, track_title,
+                            track_date, path, album_cover=None, track_cover=None, track_embedded_cover=0):
         genre_name = check_text(genre_name)
         artist_name = check_text(artist_name)
         album_title = check_text(album_title)
@@ -344,6 +343,20 @@ class TrackManager(Connection):
                      item[12], item[13]) for item in res]
         return res
 
+    def get_all_tracks(self):
+        sql = "SELECT genres.id, genres.name, artists.id, artists.name, albums.id, \
+                        albums.title, albums.date, tracks.id, tracks.tracknumber, tracks.title, tracks.date, tracks.path, albums.cover, tracks.cover, tracks.embedded_cover \
+                     FROM tracks \
+                    LEFT JOIN genres ON genres.id = tracks.genreID \
+                       LEFT JOIN artists on artists.id = tracks.artistID \
+                       LEFT join albums on albums.id = tracks.albumID "
+        self.conn.execute(sql)
+        res = self.conn.fetchall()
+        res = [Track(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8], item[9], item[10],
+                     item[11],
+                     item[12], item[13]) for item in res]
+        return res
+
     def search_albums(self, pattern):
         sql = "SELECT id, title, date, cover FROM albums WHERE title LIKE '%{}%'".format(pattern)
         self.conn.execute(sql)
@@ -369,6 +382,26 @@ class TrackManager(Connection):
             res = self.conn.fetchone()
             a.artist_image = res[0]
         return arts if res is not None else None
+
+    def del_track(self, track_id):
+        sql = "DELETE FROM tracks WHERE id = %d" % track_id
+        self.conn.execute(sql)
+        self.db.commit()
+
+    def del_album(self, album_id):
+        sql = "DELETE FROM albums WHERE id = %d" % album_id
+        self.conn.execute(sql)
+        self.db.commit()
+
+    def del_artist(self, artist_id):
+        sql = "DELETE FROM artists WHERE id = %d" % artist_id
+        self.conn.execute(sql)
+        self.db.commit()
+
+    def del_genre(self, genre_id):
+        sql = "DELETE FROM genres WHERE id = %d" % genre_id
+        self.conn.execute(sql)
+        self.db.commit()
 
 
 def check_text(text):

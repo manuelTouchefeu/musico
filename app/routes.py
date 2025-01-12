@@ -1,12 +1,13 @@
 import json
 import os
 import random
+from re import purge
 
 from app import app
 from flask import render_template, request, redirect, flash, url_for
 from .models import TrackManager, User, UserManager
 from flask_login import current_user, login_user, login_required, logout_user
-from .readtags import explore
+from .readtags import explore, purge_data_base
 
 # init the database
 from .schema import create_tables
@@ -134,8 +135,13 @@ def get_playlist():
 @app.route("/update_db/", methods=["POST"]) #ajax
 def update_data_base():
     print("Start update database")
+    print("Delete from database if file doesn't exist")
+    purge_data_base(app.config["SOURCE"])
+    print("Add and update tracks")
     explore(app.config["SOURCE"])
+    print("Database is updated")
     return render_template("skeleton.html", playlist=get_playlist())
+
 
 @app.route("/play", methods=["POST"]) #ajax)
 def play():
@@ -167,7 +173,6 @@ def server_info():
     res["file"] = os.popen("mocp --format '%file'").read().rstrip('\n')
     res["artist"] = os.popen("mocp --format '%artist'").read().rstrip('\n')
     res["title"] = os.popen("mocp --format '%song'").read().rstrip('\n')
-
     return json.dumps(res)
 
 
