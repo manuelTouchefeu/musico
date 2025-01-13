@@ -9,7 +9,7 @@ from .models import TrackManager
 
 #source = "static/musique"
 music_ext = {"flac": ["flac", "FLAC"], "ogg": ["ogg", "OGG"], "mp3": ["mp3", "MP3"]}
-cover_ext = ["jpg", "JPG"]
+cover_ext = ["jpg", "JPG", "png", "PNG"]
 cover_name = ["cover", "Cover", "Folder", "folder", "Front", "front"]
 
 def explore(current_dir):
