@@ -340,7 +340,6 @@ function nextTrack() {
         track_index = 0;
         clearPlayer();
     }
-
 }
 next_btn.addEventListener("click", nextTrack, false);
 
