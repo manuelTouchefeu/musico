@@ -1,8 +1,7 @@
 import json
 import os
 import random
-from re import purge
-
+import pickle
 from app import app
 from flask import render_template, request, redirect, flash, url_for
 from .models import TrackManager, User, UserManager
@@ -35,8 +34,16 @@ def albums():
     last_albums = albs[-10:]
     last_albums = [TrackManager().get_full_album(int(a.album_id)) for a in last_albums]
     last_albums.reverse()
-
-    return render_template("albums.html",albums_random=albums_random, last_albums=last_albums)
+    listened_albums = []
+    try:
+        with open("app/static/user_data/%d_listened_albums.pickle" % current_user.id, "rb") as f:
+            listened_albums = pickle.load(f)
+            print(listened_albums)
+            listened_albums = [TrackManager().get_full_album(a) for a in listened_albums]
+    except FileNotFoundError:
+        pass
+    print(listened_albums)
+    return render_template("albums.html",albums_random=albums_random, last_albums=last_albums, listened_albums=listened_albums)
 
 
 @app.route("/search/", methods=["POST"]) # ajax / render
@@ -106,7 +113,26 @@ def genre():
     return render_template("genre.html", gnr=gnr)
 
 
-@app.route('/save_playlist', methods=['POST']) # ajax
+@app.route("/add_listened_album", methods=['POST'])
+@login_required
+def add_listened_album():
+    albums_saved = []
+    try:
+        with open ("app/static/user_data/%d_listened_albums.pickle" % current_user.id, "rb") as f:
+            albums_saved = pickle.load(f)
+    except FileNotFoundError:
+        pass
+    if int(request.json["albumId"]) not in albums_saved:
+        if len(albums_saved) == 10:
+            albums_saved.pop()
+        albums_saved = [int(request.json["albumId"])] + albums_saved
+        with open("app/static/user_data/%d_listened_albums.pickle" % current_user.id, "wb") as f:
+            pickle.dump(albums_saved, f, pickle.HIGHEST_PROTOCOL)
+    print(albums_saved, request.json)
+    return "album saved!"
+
+
+@app.route("/save_playlist", methods=["POST"]) # ajax
 def save_playlist():
     with open ("app/static/user_data/%d_playlist.json" % current_user.id, "w") as f:
         json.dump(request.json["playlist"], f, ensure_ascii=False, indent=4)

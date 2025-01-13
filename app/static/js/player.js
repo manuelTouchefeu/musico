@@ -100,6 +100,7 @@ function savePlaylist() {
     xhr.addEventListener('readystatechange', function() {
         if (xhr.readyState === xhr.DONE) {
             let response = xhr.responseText
+            // nothing is done
         }
     }, false);
 }
@@ -326,11 +327,35 @@ function pauseTrack() {
   equalizer.src = "/static/images/icons8-audio-wave-50.png/";
 }
 
+
+// add to listened album
+function addListenedAlbum(albumId) {
+    let xhr = new XMLHttpRequest();
+    let host = window.location.origin + "/add_listened_album"
+    xhr.open('POST', host);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(JSON.stringify({albumId: albumId}));
+    xhr.addEventListener('readystatechange', function() {
+        if (xhr.readyState === xhr.DONE) {
+            let response = xhr.responseText
+            // nothing is done
+        }
+    }, false);
+}
+
 function nextTrack() {
     if (local == false) {
         fileIsLoadedOnServer = false;
     }
     if (track_index < track_list.length - 1 && fileIsLoaded) {
+        // add album to last listened albums
+        console.log(track_list[track_index].album_id);
+        if (track_list[track_index].album_id == track_list[track_index + 1].album_id) { // two tracks on tof the same album
+            addListenedAlbum(track_list[track_index].album_id)
+        }
+        console.log(track_list);
+
+
         track_index += 1;
         // Load and play the new track
         loadTrack(track_index);
@@ -459,7 +484,7 @@ function seekUpdate() {
         xhr.addEventListener('readystatechange', function() {
             if (xhr.readyState === xhr.DONE) {
                 let response = JSON.parse(xhr.responseText);
-                if (response["state"] == "STOP") { // BUG!!! stop button => nextrack
+                if (response["state"] == "STOP") {
                     if (isPlaying) { nextTrack(); }
                     return;
                 }
@@ -483,8 +508,8 @@ function seekUpdate() {
                     curr_time.textContent = currentMinutes + ":" + currentSeconds;
                     total_duration.textContent = durationMinutes + ":" + durationSeconds;
 
-                    // for clients xho join a server already loaded and playing a track
-
+                    // for clients who join a server already loaded and playing a track
+                    // toDo
                 }
             }
         }, false);
