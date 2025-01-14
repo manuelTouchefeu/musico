@@ -75,8 +75,8 @@ input:focus {
 	 text-decoration: none;
 }
 #content .album img {
-	 width: 90%;
-	 height: auto;
+	 width: 14vw;
+	 height: 14vw;
 	 object-fit: fill;
 }
 
