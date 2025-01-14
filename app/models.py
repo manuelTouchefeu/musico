@@ -229,9 +229,11 @@ class TrackManager(Connection):
                 alb_id[trk[4]] = Album(trk[4], trk[5], trk[6], trk[12])
                 alb_id[trk[4]].tracks.append(trk)
             else:
+                pass
                 alb_id[trk[4]].tracks.append(
-                    Track(res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], res[9], res[10],
-                            res[11], res[12], res[13]))
+                    Track(trk[0], trk[1], trk[2], trk[3], trk[4], trk[5], trk[6], trk[7], trk[8], trk[9], trk[10],
+                            trk[11], trk[12], trk[13]))
+
         alb = [a for a in alb_id.values()]
         gr.albums = alb
         return gr
