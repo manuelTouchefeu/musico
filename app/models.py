@@ -225,14 +225,11 @@ class TrackManager(Connection):
         res = self.conn.fetchall()
         alb_id = {}
         for trk in res:
+            t = Track(trk[0], trk[1], trk[2], trk[3], trk[4], trk[5], trk[6], trk[7], trk[8], trk[9], trk[10],
+                      trk[11], trk[12], trk[13])
             if trk[4] not in alb_id.keys():
                 alb_id[trk[4]] = Album(trk[4], trk[5], trk[6], trk[12])
-                alb_id[trk[4]].tracks.append(trk)
-            else:
-                pass
-                alb_id[trk[4]].tracks.append(
-                    Track(trk[0], trk[1], trk[2], trk[3], trk[4], trk[5], trk[6], trk[7], trk[8], trk[9], trk[10],
-                            trk[11], trk[12], trk[13]))
+            alb_id[trk[4]].tracks.append(t)
 
         alb = [a for a in alb_id.values()]
         gr.albums = alb
