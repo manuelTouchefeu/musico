@@ -540,6 +540,7 @@ function goToAlbums() {
             content.innerHTML = response;
             // add eventListeners
             goToAlbum();
+            goToArtist();
             addEvents();
         }
     }, false);
@@ -547,6 +548,7 @@ function goToAlbums() {
 linkAlbums.addEventListener("click", goToAlbums, false);
 // init the first page
 goToAlbums();
+
 
 function goToAlbum() {
     let linkAlbum = document.querySelectorAll(".link_album");

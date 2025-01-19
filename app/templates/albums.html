@@ -9,7 +9,7 @@
                 {% else %}
                 <img src="/static/images/alt.jpg/" class="link link_album"/>
                 {% endif %}
-                  <p class="link link_artist">{{ album.tracks[0].artist_name }}</p>
+                  <div> <input type="hidden" class="target" value="{{ album.tracks[0].artist_id }}"/><p class="link link_artist">{{ album.tracks[0].artist_name }}</p></div>
                 <p class="link link_album">{{ album.album_title }} ({{ album.album_date }})</p>
              </div>
              <div><button class="addToPlaylist" name="album" value="{{ album.album_id }}">+</button></div>
@@ -28,7 +28,7 @@
                 {% else %}
                 <img src="/static/images/alt.jpg/" class="link link_album"/>
                 {% endif %}
-                 <p class="link link_artist">{{ album.tracks[0].artist_name }}</p>
+                  <div> <input type="hidden" class="target" value="{{ album.tracks[0].artist_id }}"/><p class="link link_artist">{{ album.tracks[0].artist_name }}</p></div>
                 <p class="link link_album">{{ album.album_title }} ({{ album.album_date }})</p>
              </div>
              <div><button class="addToPlaylist" name="album" value="{{ album.album_id }}">+</button></div>
@@ -47,7 +47,7 @@
                 {% else %}
                 <img src="/static/images/alt.jpg/" class="link link_album"/>
                 {% endif %}
-                  <p class="link link_artist">{{ album.tracks[0].artist_name }}</p>
+                  <div> <input type="hidden" class="target" value="{{ album.tracks[0].artist_id }}"/><p class="link link_artist">{{ album.tracks[0].artist_name }}</p></div>
                 <p class="link link_album">{{ album.album_title }} ({{ album.album_date }})</p>
              </div>
              <div><button class="addToPlaylist" name="album" value="{{ album.album_id }}">+</button></div>
