@@ -58,32 +58,36 @@ var outButton = document.querySelector("#out");
 var local = outButton.innerText == "Local" ? true : false;
 
 outButton.addEventListener("click", function(e) {
-    local = (local == true ? false : true);
+    local = !local //(local == true ? false : true);
     outButton.innerText = (local == true ? "Local" : "Serveur");
     //clearPlayer()
     // init the player if server
     // get the server state.
-    let xhr = new XMLHttpRequest();
-    // Envoi de la requête.
-    let host = window.location.origin + "/server_info";
-    xhr.open('POST', host);
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    xhr.send(JSON.stringify({question: "question"}));
-    // Réception des données.
-    xhr.addEventListener('readystatechange', function() {
-        if (xhr.readyState === xhr.DONE) {
-            let response = JSON.parse(xhr.responseText);
-            if (response['state'] == "PLAY") {
-                isPlaying = true;
-                track_name.textContent = response['title'];
-                track_artist.textContent = response['artist'];
-                playPause_btn.querySelector("img").src="/static/images/pause.png";
-                equalizer.src = "/static/images/icons8-audio-wave.gif/";
-                // Set an interval of 1000 millisecond for updating the seek slider
-                updateTimer = setInterval(seekUpdate, 1000);
+    if (!local) {
+        let xhr = new XMLHttpRequest();
+        // Envoi de la requête.
+        let host = window.location.origin + "/server_info";
+        xhr.open('POST', host);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.send(JSON.stringify({question: "question"}));
+        // Réception des données.
+        xhr.addEventListener('readystatechange', function() {
+            if (xhr.readyState === xhr.DONE) {
+                let response = JSON.parse(xhr.responseText);
+                console.log(response);
+                if (response['state'] == "PLAY") {
+                    isPlaying = true;
+                    track_name.textContent = response['title'];
+                    track_artist.textContent = response['artist'];
+                    playPause_btn.querySelector("img").src="/static/images/pause.png";
+                    equalizer.src = "/static/images/icons8-audio-wave.gif/";
+                    // Set an interval of 1000 millisecond for updating the seek slider
+                    updateTimer = setInterval(seekUpdate, 1000);
+                    // Init the volume button
+                }
             }
-        }
-    }, false);
+        }, false);
+    }
 
     //return response;
 }, false);
