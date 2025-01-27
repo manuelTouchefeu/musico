@@ -88,7 +88,6 @@ outButton.addEventListener("click", function(e) {
             }
         }, false);
     }
-
     //return response;
 }, false);
 
@@ -689,7 +688,8 @@ function search() {
             content.innerHTML = response;
             // add eventListeners
             goToAlbum();
-            goToArtist()
+            goToArtist();
+            goToGenre();
         }
     }, false);
 }

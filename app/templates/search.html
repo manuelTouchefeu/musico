@@ -32,6 +32,7 @@
     </div>
     {% endfor %}
 </div>
+
 <h2>Des artistes: {% if arts | length == 0 %} il n'y a rien ici! {% endif %}</h2>
 <div class="music-container">
  {% for art in arts %}
@@ -44,6 +45,23 @@
             <img src="/static/images/alt.jpg/" class="link link_artist"/>
             {% endif %}
            <p class="link link_artist">{{ art.artist_name }}</p>
+         </div>
+    </div>
+{% endfor %}
+</div>
+
+<h2>Des genres: {% if genres | length == 0 %} il n'y a rien ici! {% endif %}</h2>
+<div class="music-container">
+{% for g in genres %}
+     <div class="album">
+         <div class="pochette">
+             <input type="hidden" class="target" value="{{ g.genre_id }}"/>
+            {% if g.genre_image != "None" %}
+            <img src="{{ g.genre_image }}" class="link link_genre"/>
+            {% else %}
+            <img src="/static/images/alt.jpg/" class="link link_genre"/>
+            {% endif %}
+            <p class="link link_genre">{{ g.genre_name }}</p>
          </div>
     </div>
 {% endfor %}

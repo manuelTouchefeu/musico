@@ -53,7 +53,8 @@ def search():
     trks = TrackManager().search_tracks(pattern)
     alb = TrackManager().search_albums(pattern)
     arts = TrackManager().search_artists(pattern)
-    return render_template("search.html", trks=trks, albums=alb, arts=arts)
+    grs = TrackManager().search_genres(pattern)
+    return render_template("search.html", trks=trks, albums=alb, arts=arts, genres=grs)
 
 
 @app.route("/album/", methods=["POST"]) # ajax / render

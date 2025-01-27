@@ -382,6 +382,18 @@ class TrackManager(Connection):
             a.artist_image = res[0]
         return arts if res is not None else None
 
+    def search_genres(self, pattern):
+        sql = "SELECT id FROM genres WHERE name LIKE '%{}%'".format(pattern)
+        self.conn.execute(sql)
+        res = self.conn.fetchall()
+        grs = [self.get_genre_by_id(int(a[0])) for a in res]
+        for g in grs:
+            sql = "SELECT cover FROM tracks WHERE genreID=%d" % g.genre_id
+            self.conn.execute(sql)
+            res = self.conn.fetchone()
+            g.genre_image = res[0]
+        return grs if res is not None else None
+
     def del_track(self, track_id):
         sql = "DELETE FROM tracks WHERE id = %d" % track_id
         self.conn.execute(sql)
