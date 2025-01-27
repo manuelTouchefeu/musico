@@ -206,7 +206,10 @@ class TrackManager(Connection):
             sql = "SELECT cover FROM tracks WHERE genreID=%d" % g.genre_id
             self.conn.execute(sql)
             res = self.conn.fetchone()
-            g.genre_image = res[0]
+            if res is not None: # check database integrity
+                g.genre_image = res[0]
+            else:
+                self.del_genre(g.genre_id)
         return grs
 
     def get_genre_by_id(self, genre_id):
@@ -245,7 +248,10 @@ class TrackManager(Connection):
             sql = "SELECT cover FROM tracks WHERE artistID=%d" % a.artist_id
             self.conn.execute(sql)
             res = self.conn.fetchone()
-            a.artist_image = res[0]
+            if res is not None:  # check database integrity
+                a.artist_image = res[0]
+            else:
+                self.del_artist(a.artist_id)
         return arts
 
     def get_artist_by_id(self, artist_id):
@@ -391,7 +397,7 @@ class TrackManager(Connection):
             sql = "SELECT cover FROM tracks WHERE genreID=%d" % g.genre_id
             self.conn.execute(sql)
             res = self.conn.fetchone()
-            g.genre_image = res[0]
+            g.genre_image = res[0] if res else None
         return grs if res is not None else None
 
     def del_track(self, track_id):

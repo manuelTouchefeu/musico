@@ -101,3 +101,4 @@ def purge_data_base(current_dir):
 					TrackManager().del_genre(trk.genre_id)
 				except TypeError:
 					pass
+
