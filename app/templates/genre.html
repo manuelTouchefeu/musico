@@ -10,7 +10,7 @@
                 <img src="/static/images/alt.jpg/" class="link link_album"/>
                 {% endif %}
                   <p class="link link_artist">{{ album.tracks[0].artist_name }}</p>
-                <p class="link link_album">{{ album.album_title }}</p>
+                <p class="link link_album">{{ album.album_title }} ({{ album.album_date }})</p>
              </div>
              <div><button class="addToPlaylist" name="album" value="{{ album.album_id }}">+</button></div>
         </div>
