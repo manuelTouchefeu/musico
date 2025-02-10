@@ -2,7 +2,7 @@ import random
 import re
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin, LoginManager
+from flask_login import UserMixin
 
 #from .routes import app
 from app import login
@@ -129,6 +129,7 @@ class TrackManager(Connection):
         return TrackManager().get_genre(genre_name)
 
     def add_artist(self, artist_name):
+        # Prevent homonyms
         if TrackManager().get_artist(artist_name) is None:
             sql="INSERT INTO artists (name) VALUES ('%s')" % artist_name
             self.conn.execute(sql)
@@ -136,11 +137,12 @@ class TrackManager(Connection):
         return TrackManager().get_artist(artist_name)
 
     def add_album(self, album_title, album_date, album_cover):
-        if TrackManager().get_album(album_title) is None:
+        # Prevent homonymes
+        if TrackManager().get_album(album_title, int(album_date)) is None:
             sql = "INSERT INTO albums (title, date, cover) VALUES ('%s', %d, '%s')" % (album_title, int(album_date), album_cover)
             self.conn.execute(sql)
             self.db.commit()
-        return TrackManager().get_album(album_title)
+        return TrackManager().get_album(album_title, int(album_date))
 
     def add_or_update_track(self, genre_name, artist_name, album_title, album_date, track_number, track_title,
                             track_date, path, album_cover=None, track_cover=None, track_embedded_cover=0):
@@ -161,7 +163,7 @@ class TrackManager(Connection):
         genre = TrackManager().get_genre(genre_name)
         genre = genre if genre is not None else TrackManager().add_genre(genre_name)
 
-        album = TrackManager().get_album(album_title)
+        album = TrackManager().get_album(album_title, album_date)
         # for tag in album ....
         if album and album.album_cover != album_cover:
             sql = "UPDATE albums SET cover = '%s' WHERE title = '%s'" % (album_cover, album_title)
@@ -285,8 +287,8 @@ class TrackManager(Connection):
         res = self.conn.fetchone()
         return Artist(res[0], res[1]) if res is not None else None
 
-    def get_album(self, album_title):
-        sql = "SELECT id, title, date, cover FROM albums WHERE title='%s'" % album_title
+    def get_album(self, album_title, album_date):
+        sql = "SELECT id, title, date, cover FROM albums WHERE (title='%s' AND date=%d)" % (album_title, int(album_date))
         self.conn.execute(sql)
         res = self.conn.fetchone()
         return Album(res[0], res[1], res[2], res[3]) if res else None
