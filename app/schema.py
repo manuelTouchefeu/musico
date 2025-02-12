@@ -12,7 +12,7 @@ def create_tables():
                     name TEXT NOT NULL )
               ''')
 
-    c.execute('''CREATE TABLE IF NOT EXISTS albums2 (
+    c.execute('''CREATE TABLE IF NOT EXISTS albums (
                     id INTEGER PRIMARY KEY,
                     title TEXT NOT NULL,
                     date INTEGER,

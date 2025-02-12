@@ -8,5 +8,5 @@ reload = True
 #keyfile = 'private.key'
 #certfile = 'certificate.crt'
 daemon = True
-loglevel = 'debug'
+loglevel = 'critical'
 

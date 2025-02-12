@@ -77,15 +77,6 @@ def purge_data_base(current_dir):
 			TrackManager().del_track(trk.track_id)
 			print("deleting %s" % trk.path, index)
 			tracks2.remove(trk)
-			# check the albums
-			for index2, trk2 in enumerate(tracks2):
-				if trk2.album_id == trk.album_id:
-					break
-				try:
-					TrackManager().del_album(trk.album_id)
-				except TypeError: # album doesn't exist -> NoneType
-					pass
-			# checks the artists
 			for index2, trk2 in enumerate(tracks2):
 				if trk2.artist_id == trk.artist_id:
 					break
@@ -101,4 +92,7 @@ def purge_data_base(current_dir):
 					TrackManager().del_genre(trk.genre_id)
 				except TypeError:
 					pass
-
+	# check the albums
+	for alb in TrackManager().get_all_albums():
+		if len(TrackManager().get_full_album(alb.album_id).tracks) == 0:
+			TrackManager().del_album(alb.album_id)

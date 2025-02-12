@@ -166,7 +166,7 @@ class TrackManager(Connection):
         album = TrackManager().get_album(album_title, album_date)
         # for tag in album ....
         if album and album.album_cover != album_cover:
-            sql = "UPDATE albums SET cover = '%s' WHERE title = '%s'" % (album_cover, album_title)
+            sql = "UPDATE albums SET cover = '%s' WHERE title = '%s' AND date = %d" % (album_cover, album_title, int(album_date)    )
             self.conn.execute(sql)
             self.db.commit()
         else:
