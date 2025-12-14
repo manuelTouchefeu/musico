@@ -38,7 +38,7 @@ def albums():
     try:
         with open("app/static/user_data/%d_listened_albums.pickle" % current_user.id, "rb") as f:
             listened_albums = pickle.load(f)
-            print(listened_albums)
+            print("albums écoutés:", listened_albums)
             listened_albums = [TrackManager().get_full_album(a) for a in listened_albums]
     except FileNotFoundError:
         pass
@@ -163,7 +163,7 @@ def get_playlist():
 def update_data_base():
     print("Start update database")
     print("Delete from database if file doesn't exist")
-    purge_data_base(app.config["SOURCE"])
+    #purge_data_base(app.config["SOURCE"])
     print("Add and update tracks")
     explore(app.config["SOURCE"])
     print("Database is updated")
@@ -186,13 +186,14 @@ def play():
             instruction = "mocp --jump %ss" % request.json["arg"]
         case "volume":
             instruction = "mocp --volume %s" % request.json["arg"]
+    print("instruction: ", instruction)
     os.system(instruction)
-    print(instruction)
     return instruction
 
 
 @app.route("/server_info", methods=["POST"]) #ajax)
 def server_info():
+    print("Demande info serveur reçue")
     res = dict()
     res["state"] = os.popen("mocp --format '%state'").read().rstrip('\n')
     res["duration"] = os.popen("mocp --format '%ts'").read().rstrip('\n')
@@ -200,6 +201,7 @@ def server_info():
     res["file"] = os.popen("mocp --format '%file'").read().rstrip('\n')
     res["artist"] = os.popen("mocp --format '%artist'").read().rstrip('\n')
     res["title"] = os.popen("mocp --format '%song'").read().rstrip('\n')
+    print(res)
     return json.dumps(res)
 
 

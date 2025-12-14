@@ -1,15 +1,11 @@
-import mutagen
-from mutagen.flac import FLAC
-from mutagen.mp3 import MP3
-from mutagen.easyid3 import EasyID3
+from mutagen import flac, mp3, oggvorbis, easyid3
 from PIL import Image
-from io import BytesIO
 import os
 from .models import TrackManager
-
+jojo = 12
 #source = "static/musique"
 music_ext = {"flac": ["flac", "FLAC"], "ogg": ["ogg", "OGG"], "mp3": ["mp3", "MP3"]}
-cover_ext = ["jpg", "JPG", "png", "PNG"]
+cover_ext = ["jpg", "jpeg", "JPG", "png", "PNG"]
 cover_name = ["cover", "Cover", "Folder", "folder", "Front", "front"]
 
 def explore(current_dir):
@@ -22,7 +18,6 @@ def explore(current_dir):
 		ext = current_dir.split(".")[-1]
 		embedded_cover = 0
 		cover = None
-
 		# recherhe image
 		for f in os.listdir(parent_dir):
 			if f.split(".")[-1] in cover_ext and f.split(".")[0] in cover_name:
@@ -30,10 +25,11 @@ def explore(current_dir):
 				# adaptation foireuse, la même pour le fichier son:
 				cover = "/".join(cover.split("/")[1:])
 				break
-
+		
 		if ext in music_ext["flac"]:
 			try:
-				f_m = FLAC(current_dir)
+				f_m = flac.FLAC(current_dir)
+				"""
 				if cover is None:
 					pics = f_m.pictures
 					for p in pics:
@@ -47,20 +43,27 @@ def explore(current_dir):
 							except OSError:
 								pass
 							break
-			except mutagen.flac.FLACNoHeaderError:
+				"""
+			except FileNotFoundError: #flac.FLACNoHeaderError:
 				pass
 
 
 		elif ext in music_ext["mp3"]:
 			try:
-				f_m = MP3(current_dir, ID3=EasyID3)
-			except mutagen.mp3.HeaderNotFoundError:
+				f_m = mp3.MP3(current_dir, ID3=easyid3.EasyID3)
+			except FileNotFoundError: #mp3.HeaderNotFoundError:
+				pass
+			# embedded cover
+		elif ext in music_ext["ogg"]:
+			try:
+				f_m = oggvorbis.OggVorbis(current_dir)
+			except (TypeError, ValueError):
 				pass
 			# embedded cover
 
-
 		# genre_name, artist_name, album_title, album_date, track_number, track_title, track_date, album_cover = None, track_cover = None, track_embedded_cover = None)
 		if f_m != "jojo":
+			print(f_m)
 			TrackManager().add_or_update_track(f_m["genre"][0], f_m["artist"][0], f_m["album"][0], f_m["date"][0],
 											   f_m["tracknumber"][0], f_m["title"][0], f_m["date"][0], "/".join(current_dir.split("/")[1:]), cover, cover, embedded_cover)
 

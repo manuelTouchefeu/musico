@@ -454,7 +454,6 @@ function seekUpdate() {
     let currentSeconds = 0;
     let durationMinutes = 0;
     let durationSeconds = 0;
-
     if (local) {
         // Check if the current track duration is a legible number
         if (!isNaN(curr_track.duration)) {
@@ -487,6 +486,7 @@ function seekUpdate() {
         xhr.addEventListener('readystatechange', function() {
             if (xhr.readyState === xhr.DONE) {
                 let response = JSON.parse(xhr.responseText);
+                console.log(response);
                 if (response["state"] == "STOP") {
                     if (isPlaying) { nextTrack(); }
                     return;
