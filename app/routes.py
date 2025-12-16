@@ -163,7 +163,7 @@ def get_playlist():
 def update_data_base():
     print("Start update database")
     print("Delete from database if file doesn't exist")
-    #purge_data_base(app.config["SOURCE"])
+    purge_data_base(app.config["SOURCE"])
     print("Add and update tracks")
     explore(app.config["SOURCE"])
     print("Database is updated")

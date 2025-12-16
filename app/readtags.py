@@ -44,14 +44,14 @@ def explore(current_dir):
 								pass
 							break
 				"""
-			except FileNotFoundError: #flac.FLACNoHeaderError:
+			except flac.FLACNoHeaderError:
 				pass
 
 
 		elif ext in music_ext["mp3"]:
 			try:
 				f_m = mp3.MP3(current_dir, ID3=easyid3.EasyID3)
-			except FileNotFoundError: #mp3.HeaderNotFoundError:
+			except mp3.HeaderNotFoundError:
 				pass
 			# embedded cover
 		elif ext in music_ext["ogg"]:
